@@ -11,7 +11,7 @@ User = get_user_model()
 
 class Client(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=100, null=True, blank=True)
+    phone = models.CharField(max_length=50, null=True, blank=True)
     avatar = models.ImageField(null=True, blank=True, default='blankuser.jpg')
 
     # account = models.ForeignKey(Account, default="", verbose_name="Счет", on_delete=models.CASCADE)
@@ -54,8 +54,8 @@ class Felial(models.Model):
         max_length=100,
         help_text="Адрес"
     )
-    tel = models.CharField(
-        max_length=100,
+    phone = models.CharField(
+        max_length=50,
         help_text="Телефон",
         null=True,
         blank=True
@@ -125,3 +125,16 @@ class Card(models.Model):
 
     def __str__(self):
         return "Карта номер: {}".format(self.numCard)
+
+
+class Sending(models.Model):
+    card = models.ForeignKey(Card, verbose_name="Карта", on_delete=models.CASCADE)
+    sender = models.ForeignKey(Client, verbose_name="Отправитель", on_delete=models.CASCADE)
+    address = models.CharField(
+        max_length=100,
+        help_text="Адрес"
+    )
+    dateSending = models.DateField(
+        null=True,
+        blank=True
+    )
