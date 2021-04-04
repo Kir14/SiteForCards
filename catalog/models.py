@@ -14,6 +14,8 @@ class Client(models.Model):
     phone = models.CharField(max_length=100, null=True, blank=True)
     avatar = models.ImageField(null=True, blank=True, default='blankuser.jpg')
 
+    # account = models.ForeignKey(Account, default="", verbose_name="Счет", on_delete=models.CASCADE)
+
     # surname = models.CharField(
     #     max_length=100,
     #     help_text="Фамилия"
@@ -73,6 +75,7 @@ class Account(models.Model):
         help_text="Остаток"
     )
     felial = models.ForeignKey(Felial, verbose_name="Фелиал", on_delete=models.CASCADE)
+    user = models.ForeignKey(Client, default="", verbose_name="Пользователь", on_delete=models.CASCADE)
 
     def __str__(self):
         return "Номер счета {}".format(self.numAccount)
@@ -118,7 +121,7 @@ class Card(models.Model):
     )
     typeCard = models.ForeignKey(TypesCard, verbose_name="Тип карты", on_delete=models.CASCADE)
     bankAccount = models.ForeignKey(Account, verbose_name="Счет", on_delete=models.CASCADE)
-    user = models.ForeignKey(Client, default=" ", verbose_name="Пользователь", on_delete=models.CASCADE)
+    user = models.ForeignKey(Client, default="", verbose_name="Пользователь", on_delete=models.CASCADE)
 
     def __str__(self):
         return "Карта номер: {}".format(self.numCard)
