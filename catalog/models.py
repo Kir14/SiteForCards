@@ -130,6 +130,11 @@ class Card(models.Model):
 class Sending(models.Model):
     card = models.ForeignKey(Card, verbose_name="Карта", on_delete=models.CASCADE)
     sender = models.ForeignKey(Client, verbose_name="Отправитель", on_delete=models.CASCADE)
+    num_send = models.CharField(
+        max_length=100,
+        default="",
+        help_text="номер отправления"
+    )
     address = models.CharField(
         max_length=100,
         help_text="Адрес"
