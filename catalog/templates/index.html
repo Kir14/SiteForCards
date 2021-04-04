@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>KapTo4ku</h1>
+
+  <p>Welcome to <em>KapTo4ku</em>, a very basic Django website developed as a tutorial example on the Mozilla Developer Network.</p>
+
+<h2>Dynamic content</h2>
+
+  <p>The library has the following record counts:</p>
+  <ul>
+    <li><strong>Clients:</strong> {{ num_clients }}</li>
+    <li><strong>Type cards:</strong> {{ num_type }}</li>
+<!--     <li><strong>Copies available:</strong> {{ num_instances_available }}</li> -->
+    <li><strong>Felials:</strong> {{ num_felial }}</li>
+  </ul>
+
+{% endblock %}
