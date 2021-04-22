@@ -95,6 +95,7 @@ class TypesCard(models.Model):
         max_length=100,
         help_text="Описание"
     )
+    image = models.ImageField(null=True, blank=True, default='Batman.jpg')
 
     def __str__(self):
         return "Карта, {}, стоимость {}, описание: {}".format(self.nameCard, self.price, self.description)
@@ -119,6 +120,7 @@ class Card(models.Model):
         max_length=100,
         help_text="Пароль"
     )
+    image = models.ImageField(null=True, blank=True, default='Batman.jpg')
     typeCard = models.ForeignKey(TypesCard, verbose_name="Тип карты", on_delete=models.CASCADE)
     bankAccount = models.ForeignKey(Account, verbose_name="Счет", on_delete=models.CASCADE)
     user = models.ForeignKey(Client, default="", verbose_name="Пользователь", on_delete=models.CASCADE)

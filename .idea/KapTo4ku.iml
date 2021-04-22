@@ -18,6 +18,12 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="library" name="jquery-1.11.1" level="application" />
+    <orderEntry type="library" name="bootstrap-combined" level="application" />
+    <orderEntry type="library" name="feather" level="application" />
+    <orderEntry type="library" name="pcoded" level="application" />
+    <orderEntry type="library" name="vertical-layout" level="application" />
+    <orderEntry type="library" name="popper.js" level="application" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />
