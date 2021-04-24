@@ -95,6 +95,21 @@ class TypesCard(models.Model):
         max_length=100,
         help_text="Описание"
     )
+    ccy = models.CharField(
+        max_length=3,
+        help_text="Валюта",
+        default="BYN"
+    )
+    cashback = models.CharField(
+        max_length=10,
+        help_text="Cashback",
+        default="5%"
+    )
+    validity_period = models.CharField(
+        max_length=100,
+        help_text="Срокдействия",
+        default="3 года"
+    )
     image = models.ImageField(null=True, blank=True, default='Batman.jpg')
 
     def __str__(self):
