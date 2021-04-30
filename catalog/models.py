@@ -33,6 +33,9 @@ class Client(models.Model):
         """String for representing the Model object (in Admin site etc.)"""
         return "Клиент {} {}".format(self.user.first_name, self.user.last_name)
 
+    def get_image(self):
+        return self.avatar
+
 
 class SecurityUser(models.Model):
     user = models.OneToOneField(Client, null=True, on_delete=models.CASCADE)
@@ -120,6 +123,12 @@ class TypesCard(models.Model):
         Returns the url to access a particular book instance.
         """
         return reverse('typescard_view', args=[str(self.nameCard)])
+
+    def get_absolute_url_for_order(self):
+        """
+        Returns the url to access a particular book instance.
+        """
+        return reverse('order_card', args=[str(self.nameCard)])
 
 
 class Card(models.Model):

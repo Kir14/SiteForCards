@@ -1,4 +1,4 @@
-{% extends "base_generic.html" %}
+           {% extends "base_generic.html" %}
 
 {% block content %}
 <h1>KapTo4ku</h1>
@@ -12,7 +12,63 @@
     <li><strong>Clients:</strong> {{ num_clients }}</li>
     <li><strong>Type cards:</strong> {{ num_type }}</li>
 <!--     <li><strong>Copies available:</strong> {{ num_instances_available }}</li> -->
-    <li><strong>Filials:</strong> {{ num_felial }}</li>
+    <li><strong>Filials:</strong> {{ cards.1.nameCard }}</li>
   </ul>
+
+
+
+  <div class="demo2">
+            <div class="container">
+
+                <div class="row">
+                <div class="col-md-4 col-sm-6">
+                        <div class="pricingTable2 pink">
+                            <div class="pricingTable-header">
+                                <h3 class="title">{{ cards.0.nameCard }}</h3>
+                                <div class="price-value">{{ cards.0.price }} BYN</div>
+                            </div>
+                            <ul class="pricing-content">
+                                <li><i class="fa fa-check"></i>Срок выдачи: {{ cards.0.validity_period }}</li>
+                                <li><i class="fa fa-check"></i>Кеш-бэк {{ cards.0.cashback }}</li>
+                                <li><i class="fa fa-check"></i>Валюта {{ cards.0.ccy }}</li>
+                            </ul>
+                            <a href="{{ cards.0.get_absolute_url }}" class="pricingTable-signup">Оформить</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="pricingTable2">
+                            <div class="pricingTable-header">
+                                <h3 class="title"> {{ cards.1.nameCard }}</h3>
+                                <div class="price-value">{{ cards.1.price }} BYN</div>
+                            </div>
+                            <ul class="pricing-content">
+                                <li><i class="fa fa-check"></i>Срок выдачи: {{ cards.1.validity_period }}</li>
+                                <li><i class="fa fa-check"></i>Кеш-бэк {{ cards.1.cashback }}</li>
+                                <li><i class="fa fa-check"></i>Валюта: {{ cards.1.ccy }}</li>
+
+                            </ul>
+                            <a href="{{ cards.1.get_absolute_url }}" class="pricingTable-signup">Оформить</a>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="pricingTable2 blue">
+                            <div class="pricingTable-header">
+                                <h3 class="title"> {{ cards.2.nameCard }} </h3>
+                                <div class="price-value">{{ cards.2.price }} BYN</div>
+                            </div>
+                            <ul class="pricing-content">
+                                <li><i class="fa fa-check"></i>Срок выдачи: {{ cards.2.validity_period }}</li>
+                                <li><i class="fa fa-check"></i>Кеш-Бэк {{ cards.2.cashback }}</li>
+                                <li><i class="fa fa-check"></i>Валюта: {{ cards.2.ccy }}</li>
+                            </ul>
+                            <a href="{{ cards.2.get_absolute_url }}" class="pricingTable-signup">Оформить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
 
 {% endblock content%}

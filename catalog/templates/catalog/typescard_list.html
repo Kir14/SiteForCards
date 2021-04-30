@@ -4,16 +4,17 @@
     <h1>Виды карт</h1>
 
     {% if typescard_list %}
-    <ul>
+        <ul>
 
-      {% for typeCard in typescard_list %}
-      <li>
-        <a href="{{ typeCard.get_absolute_url }}">{{ typeCard.nameCard }}</a>
-      </li>
-      {% endfor %}
+            {% for typeCard in typescard_list %}
+                <li>
+                    <a href="{{ typeCard.get_absolute_url }}">{{ typeCard.nameCard }}</a>
+                </li>
+            {% endfor %}
 
-    </ul>
+        </ul>
     {% else %}
-      <p>There are no card.</p>
+        <p>There are no card.</p>
     {% endif %}
+
 {% endblock %}

@@ -24,6 +24,7 @@
     <orderEntry type="library" name="pcoded" level="application" />
     <orderEntry type="library" name="vertical-layout" level="application" />
     <orderEntry type="library" name="popper.js" level="application" />
+    <orderEntry type="library" name="all" level="application" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />

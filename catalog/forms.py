@@ -2,7 +2,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import User, SecurityUser, TypesCard, Client
+from .models import User, SecurityUser, TypesCard, Client, Card
 
 
 class CreateUserForm(UserCreationForm):
@@ -23,7 +23,19 @@ class UserProfileForm(ModelForm):
         }
 
 
-class CreateTypeCard(ModelForm):
+class TypeCard(ModelForm):
     class Meta:
         model = TypesCard
+        fields = '__all__'
+
+
+class ClientForm(ModelForm):
+    class Meta:
+        model = Client
+        fields = '__all__'
+
+
+class CardForm(ModelForm):
+    class Meta:
+        model = Card
         fields = '__all__'

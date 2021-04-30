@@ -5,7 +5,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
 from .forms import CreateUserForm, UserProfileForm
-from .models import Client, TypesCard, Felial, User
+from .models import Client, TypesCard, Felial, User, Account
+
+from django.views import generic
 
 
 def index(request):
@@ -15,6 +17,9 @@ def index(request):
     # Генерация "количеств" некоторых главных объектов
     num_clients = Client.objects.all().count()
     num_type = TypesCard.objects.all().count()
+
+    cards = TypesCard.objects.all()
+    count_card = TypesCard.objects.all().count()
     # Доступные книги (статус = 'a')
     # num_instances_available=BookInstance.objects.filter(status__exact='a').count()
     num_felial = Felial.objects.count()  # Метод 'all()' применён по умолчанию.
@@ -24,11 +29,12 @@ def index(request):
     return render(
         request,
         'index.html',
-        context={'num_clients': num_clients, 'num_type': num_type, 'num_felial': num_felial},
+        context={'cards': cards,
+                 'count_cards': count_card,
+                 'num_clients': num_clients,
+                 'num_type': num_type,
+                 'num_felial': num_felial},
     )
-
-
-from django.views import generic
 
 
 class TypeCardListView(generic.ListView):
@@ -46,6 +52,38 @@ def typescard_view(request, slug):
         'catalog/typescard_detail.html',
         context={'typescard': typescard, }
     )
+
+
+def order_card(request, slug):
+    card_order = get_object_or_404(TypesCard, nameCard=slug)
+    cbu = Felial.objects.all()
+    accounts = Account.objects.all()
+    return render(
+        request,
+        'catalog/order_card.html',
+        context={'card_order': card_order,
+                 'filials': cbu,
+                 'accounts': accounts,}
+    )
+
+
+def base_generic(request):
+    clients = Client.objects.filter(user=request.user).first()
+    return render(
+        request,
+        'base_generic.html',
+        context={
+            'client': clients,
+        },
+    )
+
+
+# def cards(request):
+#     cards_list = {
+#         "cards": TypesCard.objects.all(),
+#         "count": TypesCard.objects.all().count()
+#     }
+#     return render(request, 'index.html', cards_list)
 
 
 def registration(request):

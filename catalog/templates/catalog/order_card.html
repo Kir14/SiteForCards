@@ -1,0 +1,94 @@
+
+
+
+{% extends "base_generic.html" %}
+{% load static %}
+<script src="/static/js/script.js"></script>
+{% block content %}
+  <h1>Карта: {{ card_order.nameCard }}</h1>
+
+
+<div class="container">
+
+  <img id="cardimg" src={% static card_order.image.url %} class="rounded" width="558" height="236" style="border-radius: .9rem!important ;position: relative">
+  <img src="/static/img/chip.png" class="rounded" width="58" height="50"
+       style="position: absolute;
+        bottom: 709px;
+        left: 100px;">
+    <img src="/static/img/visa.png" class="rounded" width="80" height="50"
+       style="position: absolute;
+        bottom: 581px;
+    left: 487px;">
+  <h1 style="position: absolute;
+  left: 120px;
+  bottom: 640px;
+  width: 400px;
+  font-weight: 250;
+
+  text-align: justify;
+   text-align-last: justify;
+  font-size: 1.5rem;
+  color: #f5f50e">0000  0000  0000  0000</h1>
+<h1 style="position: absolute;
+  left: 120px;
+  bottom: 580px;
+  font-weight: 250;
+  font-size: 1.5rem;
+  color: #f5f50e">Cardholder name</h1>
+<h1 style="position: absolute;
+  left: 403px;
+  bottom: 580px;
+  font-weight: 250;
+  font-size: 1.5rem;
+  color: #f5f50e">00/00</h1>
+</div>
+
+    <form id="form1">
+        <input type='file' id="imgInp" />
+        <img id="blah" src="#" alt="your image" />
+    </form>
+{#    <form method="post" enctype="multipart/form-data">#}
+{#  {% csrf_token %}#}
+{#  {{ form.as_p }}#}
+{#  <button type="submit">Изменить фон карты</button>#}
+{#</form>#}
+
+    <form>
+{#  <div class="form-group">#}
+{#    <label for="exampleFormControlInput1">Email address</label>#}
+{#    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">#}
+{#  </div>#}
+
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Выбор ЦБУ</label>
+    <select class="form-control" id="exampleFormControlSelect1">
+      {% for cbu in filials %}
+          <option>ЦБУ № {{ cbu.numFelial }} Адрес: {{ cbu.address }}</option>
+        {% endfor %}
+    </select>
+  </div>
+    <div class="form-group">
+    <label for="exampleFormControlSelect1">Выбор счета</label>
+    <select class="form-control" id="exampleFormControlSelect1">
+        <option>Новый счет</option>
+        {% for account in accounts %}
+          <option>{{ account.numAccount }}</option>
+        {% endfor %}
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect2">Example multiple select</label>
+    <select multiple class="form-control" id="exampleFormControlSelect2">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">Example textarea</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+  </div>
+</form>
+{% endblock %}
