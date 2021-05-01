@@ -2,7 +2,6 @@ import random
 from datetime import datetime
 from pyexpat.errors import messages
 
-
 from django.core.files.storage import FileSystemStorage
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
@@ -63,16 +62,6 @@ def order_card(request, slug):
     cbu = Felial.objects.all()
     client = Client.objects.filter(user=request.user).first()
     accounts = Account.objects.filter(user=client)
-    # POST - обязательный метод
-    # file_url = ""
-    # if request.method == 'POST' and request.FILES:
-    #     # получаем загруженный файл
-    #     file = request.FILES['myfile1']
-    #     fs = FileSystemStorage()
-    #     # сохраняем на файловой системе
-    #     filename = fs.save(file.name, file)
-    #     # получение адреса по которому лежит файл
-    #     file_url = fs.url(filename)
     if request.method == 'POST':
         pic = request.POST['cardPic']
         numCBU = request.POST['nameCBU']
@@ -116,12 +105,16 @@ def base_generic(request):
     )
 
 
-# def cards(request):
-#     cards_list = {
-#         "cards": TypesCard.objects.all(),
-#         "count": TypesCard.objects.all().count()
-#     }
-#     return render(request, 'index.html', cards_list)
+def my_card(request):
+    client = Client.objects.filter(user=request.user).first()
+    list_card = Card.objects.filter(user=client)
+    return render(
+        request,
+        'catalog/my_card.html',
+        context={
+            'my_card_list': list_card,
+        },
+    )
 
 
 def registration(request):
