@@ -1,5 +1,6 @@
+import datetime
 import random
-from datetime import datetime
+
 from pyexpat.errors import messages
 
 from django.core.files.storage import FileSystemStorage
@@ -63,7 +64,7 @@ def order_card(request, slug):
     client = Client.objects.filter(user=request.user).first()
     accounts = Account.objects.filter(user=client)
     if request.method == 'POST':
-        pic = request.POST['cardPic']
+        pic = request.FILES['cardPic']
         numCBU = request.POST['nameCBU']
         nameCBU = Felial.objects.filter(numFelial=numCBU.split(' ')[2]).first()
         numCard = random.randint(1000000000000000, 9999999999999999)
@@ -78,11 +79,28 @@ def order_card(request, slug):
             new_account.save()
         else:
             new_account = Account.objects.filter(numAccount=account).first()
-        dateFinish = datetime.today().replace(year=+3).strftime("%mm%YY")
+        dt = datetime.datetime.today()
+        dt = dt.replace(year=dt.year + 3).strftime("%m%Y")
+        # dateFinish = datetime.datetime().today().replace(
+        #     year=datetime.datetime().today().year + relativedelta() datetime.timedelta(days=3*365)).strftime("%m%Y")
 
-        new_card = Card(numCard=numCard, dateFinish=dateFinish, image=pic, typeCard=card_order,
+        fs = FileSystemStorage()
+        filename = fs.save(pic.name, pic)
+
+        new_card = Card(numCard=numCard, dateFinish=dt, image=filename, typeCard=card_order,
                         bankAccount=new_account, user=client)
         new_card.save()
+
+        # POST - обязательный метод
+        # file_url = ""
+        # if request.method == 'POST' and request.FILES:
+        #     # получаем загруженный файл
+        #     file = request.FILES['myfile1']
+        #     fs = FileSystemStorage()
+        #     # сохраняем на файловой системе
+        #     filename = fs.save(file.name, file)
+        #     # получение адреса по которому лежит файл
+        #     file_url = fs.url(filename)
 
     return render(
         request,

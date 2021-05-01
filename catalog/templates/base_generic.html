@@ -69,13 +69,13 @@
                    aria-haspopup="true" aria-expanded="false">
                     <img src="/static/img/blankuser.jpg" class="rounded-circle z-depth-0"
                          alt="avatar image" style="width: 25px">
-
+                    {{ user.get_username }}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-secondary"
                      aria-labelledby="navbarDropdownMenuLink-55">
                     <a class="dropdown-item" href="/catalog/my_card/">Мои заявки</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="{% url 'logout' %}?next={{ request.path }}">Выйти</a>
+                    {#                    <a class="dropdown-item" href="#">Something else here</a>#}
                 </div>
             </li>
         </ul>
@@ -89,34 +89,32 @@
             <a href="{% url 'login' %}?next={{ request.path }}" style="color: aliceblue">Login</a>
         </li>
     {% endif %}
-
-
 </nav>
 
 
-<div class="container-fluid">
+<div >
 
-    <div class="row">
-        <div class="col-sm-2">
-            {% block sidebar %}
-                <ul class="sidebar-nav">
-                    <li><a href="{% url 'index' %}">Home</a></li>
-                    <li><a href="/catalog/type_card/">Cards</a></li>
-                    <li><a href="">Filials</a></li>
-                    {% if user.is_authenticated %}
-                        <li>User: {{ user.get_username }}</li>
-                        <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
-                    {% else %}
-                        <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
-                    {% endif %}
-                </ul>
-            {% endblock %}
-        </div>
-        <div class="col-sm-10 ">
+{#    <div class="row">#}
+        {#        <div class="col-sm-2">#}
+        {#            {% block sidebar %}#}
+        {#                <ul class="sidebar-nav">#}
+        {#                    <li><a href="{% url 'index' %}">Home</a></li>#}
+        {#                    <li><a href="/catalog/type_card/">Cards</a></li>#}
+        {#                    <li><a href="">Filials</a></li>#}
+        {#                    {% if user.is_authenticated %}#}
+        {#                        <li>User: {{ user.get_username }}</li>#}
+        {#                        <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>#}
+        {#                    {% else %}#}
+        {#                        <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>#}
+        {#                    {% endif %}#}
+        {#                </ul>#}
+        {#            {% endblock %}#}
+        {#        </div>#}
+        <div>
 
             {% block content %}{% endblock %}
         </div>
-    </div>
+{#    </div>#}
 
 </div>
 

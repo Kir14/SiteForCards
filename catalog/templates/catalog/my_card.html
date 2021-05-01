@@ -24,7 +24,9 @@
                             <th scope="row">{{ card.typeCard.nameCard }}</th>
                             <td class="w-25">
 
-                                <img src={% static card.image %} class="img-fluid">
+                                <img src={% static card.image.url %} class="rounded"
+                                     width="270" height="118"
+                                     style="border-radius: .9rem!important ;">
                             </td>
                             <td> {{ card.dateFinish }} </td>
                             <td> {{ card.typeCard.price }} </td>

@@ -4,50 +4,52 @@
 {% load static %}
 
 {% block content %}
-  <h1>Название: {{ typescard.nameCard }}</h1>
+    <form style="text-align:center">
+        <h1>Название: {{ typescard.nameCard }}</h1>
 
 
-<div class="container">
+        <div class="container">
 
-  <img src={% static typescard.image.url %} class="rounded" width="558" height="236" style="border-radius: .9rem!important ;position: relative">
-  <img src="/static/img/chip.png" class="rounded" width="58" height="50"
-       style="position: absolute;
-        bottom: 309px;
-        left: 100px;">
-    <img src="/static/img/visa.png" class="rounded" width="80" height="50"
-       style="position: absolute;
-        bottom: 181px;
-    left: 487px;">
-  <h1 style="position: absolute;
-  left: 120px;
-  bottom: 240px;
+            <img src={% static typescard.image.url %} class="rounded" width="558" height="236"
+                 style="border-radius: .9rem!important ;position: relative">
+            <img src="/static/img/chip.png" class="rounded" width="58" height="50"
+                 style="position: absolute;
+        bottom: 570px;
+        left: 500px;">
+            <img src="/static/img/visa.png" class="rounded" width="80" height="50"
+                 style="position: absolute;
+        bottom: 420px;
+    left: 887px;">
+            <h1 style="position: absolute;
+  left: 520px;
+  bottom: 480px;
   width: 400px;
   font-weight: 250;
 
   text-align: justify;
    text-align-last: justify;
   font-size: 1.5rem;
-  color: #f5f50e">0000  0000  0000  0000</h1>
-<h1 style="position: absolute;
-  left: 120px;
-  bottom: 180px;
+  color: #f5f50e">0000 0000 0000 0000</h1>
+            <h1 style="position: absolute;
+  left: 520px;
+  bottom: 420px;
   font-weight: 250;
   font-size: 1.5rem;
   color: #f5f50e">Cardholder name</h1>
-<h1 style="position: absolute;
-  left: 403px;
-  bottom: 180px;
+            <h1 style="position: absolute;
+  left: 803px;
+  bottom: 420px;
   font-weight: 250;
   font-size: 1.5rem;
   color: #f5f50e">00/00</h1>
-</div>
-    <p><strong>Цена:</strong> {{ typescard.price }}</p>
-  <p><strong>Описание:</strong> {{ typescard.description }}</p>
-    <p><strong>Cash-back:</strong> {{ typescard.cashback }}</p>
-  <p><strong>Валюта:</strong> {{ typescard.ccy }}</p>
+        </div>
+        <p><strong>Цена:</strong> {{ typescard.price }}</p>
+        <p><strong>Описание:</strong> {{ typescard.description }}</p>
+        <p><strong>Cash-back:</strong> {{ typescard.cashback }}</p>
+        <p><strong>Валюта:</strong> {{ typescard.ccy }}</p>
 
-<a href="{{ typescard.get_absolute_url_for_order }}">Оформить</a>
+        <a href="{{ typescard.get_absolute_url_for_order }}">Оформить</a>
 
 
-
+    </form>
 {% endblock %}

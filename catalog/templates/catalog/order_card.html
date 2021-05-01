@@ -6,7 +6,8 @@
 
 <script src="/static/js/script.js"></script>
 {% block content %}
-    <form action="" method="POST" enctype="multipart/form-data">
+
+    <form action="" method="POST" enctype="multipart/form-data" style="text-align:center">
     {% csrf_token %}
     <h1>Карта: {{ card_order.nameCard }}</h1>
 
@@ -22,15 +23,15 @@
         {#        {% endif %}#}
         <img src="/static/img/chip.png" class="rounded" width="58" height="50"
              style="position: absolute;
-        bottom: 349px;
-        left: 100px;">
+        bottom: 570px;
+        left: 500px;">
         <img src="/static/img/visa.png" class="rounded" width="80" height="50"
              style="position: absolute;
-        bottom: 221px;
-    left: 487px;">
+        bottom: 420px;
+    left: 887px;">
         <h1 style="position: absolute;
-  left: 120px;
-  bottom: 280px;
+  left: 520px;
+  bottom: 480px;
   width: 400px;
   font-weight: 250;
 
@@ -39,14 +40,14 @@
   font-size: 1.5rem;
   color: #f5f50e">0000 0000 0000 0000</h1>
         <h1 style="position: absolute;
-  left: 120px;
-  bottom: 220px;
+  left: 520px;
+  bottom: 420px;
   font-weight: 250;
   font-size: 1.5rem;
   color: #f5f50e">Cardholder name</h1>
         <h1 style="position: absolute;
-  left: 403px;
-  bottom: 220px;
+  left: 803px;
+  bottom: 420px;
   font-weight: 250;
   font-size: 1.5rem;
   color: #f5f50e">00/00</h1>
@@ -75,7 +76,7 @@
 
         <div class="form-group">
             <label for="exampleFormControlSelect1">Выбор ЦБУ</label>
-            <select class="form-control" id="exampleFormControlSelect1" name="nameCBU">
+            <select class="form-control" id="exampleFormControlSelect1" name="nameCBU" >
                 {% for cbu in filials %}
                     <option>ЦБУ № {{ cbu.numFelial }} Адрес: {{ cbu.address }}</option>
                 {% endfor %}
