@@ -3,92 +3,123 @@
 
 {% extends "base_generic.html" %}
 {% load static %}
+
 <script src="/static/js/script.js"></script>
 {% block content %}
-  <h1>Карта: {{ card_order.nameCard }}</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h1>Карта: {{ card_order.nameCard }}</h1>
 
 
-<div class="container">
+    <div class="container">
 
-  <img id="cardimg" src={% static card_order.image.url %} class="rounded" width="558" height="236" style="border-radius: .9rem!important ;position: relative">
-  <img src="/static/img/chip.png" class="rounded" width="58" height="50"
-       style="position: absolute;
-        bottom: 709px;
+        {#        {% if file_url != "" %}#}
+        {#            <img id="cardimg" src={% static file_url %} class="rounded" width="558" height="236"#}
+        {#                 style="border-radius: .9rem!important ;position: relative">#}
+        {#        {% else %}#}
+        <img id="cardimg" src={% static card_order.image.url %} class="rounded" width="558" height="236"
+             style="border-radius: .9rem!important ;position: relative">
+        {#        {% endif %}#}
+        <img src="/static/img/chip.png" class="rounded" width="58" height="50"
+             style="position: absolute;
+        bottom: 349px;
         left: 100px;">
-    <img src="/static/img/visa.png" class="rounded" width="80" height="50"
-       style="position: absolute;
-        bottom: 581px;
+        <img src="/static/img/visa.png" class="rounded" width="80" height="50"
+             style="position: absolute;
+        bottom: 221px;
     left: 487px;">
-  <h1 style="position: absolute;
+        <h1 style="position: absolute;
   left: 120px;
-  bottom: 640px;
+  bottom: 280px;
   width: 400px;
   font-weight: 250;
 
   text-align: justify;
    text-align-last: justify;
   font-size: 1.5rem;
-  color: #f5f50e">0000  0000  0000  0000</h1>
-<h1 style="position: absolute;
+  color: #f5f50e">0000 0000 0000 0000</h1>
+        <h1 style="position: absolute;
   left: 120px;
-  bottom: 580px;
+  bottom: 220px;
   font-weight: 250;
   font-size: 1.5rem;
   color: #f5f50e">Cardholder name</h1>
-<h1 style="position: absolute;
+        <h1 style="position: absolute;
   left: 403px;
-  bottom: 580px;
+  bottom: 220px;
   font-weight: 250;
   font-size: 1.5rem;
   color: #f5f50e">00/00</h1>
-</div>
+    </div>
+    <div class="d-flex justify-content-start">
+        <div class="btn btn-mdb-color btn-rounded float-left">
+            <input type="file" id="add_image" name="cardPic">
+        </div>
+    </div>
+    {#    <form id="form1">#}
+    {#        <input type='file' id="imgInp" />#}
+    {#        <img id="blah" src="#" alt="your image" />#}
+    {#    </form>#}
 
-    <form id="form1">
-        <input type='file' id="imgInp" />
-        <img id="blah" src="#" alt="your image" />
+    {#    <form method="post" enctype="multipart/form-data">#}
+    {#        {% csrf_token %}#}
+    {#        <!-- myfile1 - переменная передающееся в Django -->#}
+    {#        <input type="file" name="myfile1" value="Выбрать изображение">#}
+    {#        <button type="submit">Применить</button>#}
+    {#    </form>#}
+
+        {#  <div class="form-group">#}
+        {#    <label for="exampleFormControlInput1">Email address</label>#}
+        {#    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">#}
+        {#  </div>#}
+
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Выбор ЦБУ</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="nameCBU">
+                {% for cbu in filials %}
+                    <option>ЦБУ № {{ cbu.numFelial }} Адрес: {{ cbu.address }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Выбор счета</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="list_accounts">
+                <option>Новый счет</option>
+                {% for account in accounts %}
+                    <option>{{ account.numAccount }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+                   onchange="document.getElementById('address').disabled = !this.checked;">
+            <label class="form-check-label" for="defaultCheck1">
+                Почтовое отправление
+            </label>
+        </div>
+
+        <div class="form-group">
+            <input id="address" type="text" class="form-control" placeholder="Адрес">
+        </div>
+
+        <button type="submit">Оформить заявку</button>
     </form>
-{#    <form method="post" enctype="multipart/form-data">#}
-{#  {% csrf_token %}#}
-{#  {{ form.as_p }}#}
-{#  <button type="submit">Изменить фон карты</button>#}
-{#</form>#}
+    <script>
+        const inpFile = document.getElementById("add_image");
+        const previewImage = document.getElementById("cardimg");
+        inpFile.addEventListener("change", function () {
+            const file = this.files[0];
 
-    <form>
-{#  <div class="form-group">#}
-{#    <label for="exampleFormControlInput1">Email address</label>#}
-{#    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">#}
-{#  </div>#}
+            if (file) {
+                const reader = new FileReader();
 
-  <div class="form-group">
-    <label for="exampleFormControlSelect1">Выбор ЦБУ</label>
-    <select class="form-control" id="exampleFormControlSelect1">
-      {% for cbu in filials %}
-          <option>ЦБУ № {{ cbu.numFelial }} Адрес: {{ cbu.address }}</option>
-        {% endfor %}
-    </select>
-  </div>
-    <div class="form-group">
-    <label for="exampleFormControlSelect1">Выбор счета</label>
-    <select class="form-control" id="exampleFormControlSelect1">
-        <option>Новый счет</option>
-        {% for account in accounts %}
-          <option>{{ account.numAccount }}</option>
-        {% endfor %}
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="exampleFormControlSelect2">Example multiple select</label>
-    <select multiple class="form-control" id="exampleFormControlSelect2">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="exampleFormControlTextarea1">Example textarea</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-  </div>
-</form>
+                reader.addEventListener("load", function () {
+                    previewImage.setAttribute("src", this.result)
+                });
+
+                reader.readAsDataURL(file);
+            }
+        })
+    </script>
 {% endblock %}

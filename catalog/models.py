@@ -1,5 +1,6 @@
 import uuid
 
+import null as null
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -65,7 +66,7 @@ class Felial(models.Model):
     )
 
     def __str__(self):
-        return "Фелиал номер {}, адресс: {}".format(self.numFelial, self.address)
+        return "ЦБУ № {} Адрес: {}".format(self.numFelial, self.address)
 
 
 class Account(models.Model):
@@ -75,7 +76,8 @@ class Account(models.Model):
     )
     ostatok = models.CharField(
         max_length=100,
-        help_text="Остаток"
+        help_text="Остаток",
+        default=0
     )
     felial = models.ForeignKey(Felial, verbose_name="Фелиал", on_delete=models.CASCADE)
     user = models.ForeignKey(Client, default="", verbose_name="Пользователь", on_delete=models.CASCADE)
@@ -142,7 +144,8 @@ class Card(models.Model):
     )
     password = models.CharField(
         max_length=100,
-        help_text="Пароль"
+        help_text="Пароль",
+        default='1234'
     )
     image = models.ImageField(null=True, blank=True, default='Batman.jpg')
     typeCard = models.ForeignKey(TypesCard, verbose_name="Тип карты", on_delete=models.CASCADE)
@@ -168,4 +171,12 @@ class Sending(models.Model):
     dateSending = models.DateField(
         null=True,
         blank=True
+    )
+    checkbox = models.BooleanField(
+        default=False
+    )
+    status = models.CharField(
+        max_length=100,
+        default='В обработке',
+        help_text='Статус'
     )

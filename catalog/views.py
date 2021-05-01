@@ -1,11 +1,15 @@
+import random
+from datetime import datetime
 from pyexpat.errors import messages
 
+
+from django.core.files.storage import FileSystemStorage
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
 from .forms import CreateUserForm, UserProfileForm
-from .models import Client, TypesCard, Felial, User, Account
+from .models import Client, TypesCard, Felial, User, Account, Card
 
 from django.views import generic
 
@@ -57,13 +61,47 @@ def typescard_view(request, slug):
 def order_card(request, slug):
     card_order = get_object_or_404(TypesCard, nameCard=slug)
     cbu = Felial.objects.all()
-    accounts = Account.objects.all()
+    client = Client.objects.filter(user=request.user).first()
+    accounts = Account.objects.filter(user=client)
+    # POST - обязательный метод
+    # file_url = ""
+    # if request.method == 'POST' and request.FILES:
+    #     # получаем загруженный файл
+    #     file = request.FILES['myfile1']
+    #     fs = FileSystemStorage()
+    #     # сохраняем на файловой системе
+    #     filename = fs.save(file.name, file)
+    #     # получение адреса по которому лежит файл
+    #     file_url = fs.url(filename)
+    if request.method == 'POST':
+        pic = request.POST['cardPic']
+        numCBU = request.POST['nameCBU']
+        nameCBU = Felial.objects.filter(numFelial=numCBU.split(' ')[2]).first()
+        numCard = random.randint(1000000000000000, 9999999999999999)
+        while Card.objects.filter(numCard=numCard).count() > 0:
+            numCard = random.randint(1000000000000000, 9999999999999999)
+        account = request.POST['list_accounts']
+        if account == 'Новый счет':
+            account = random.randint(1000000, 9999999)
+            while Account.objects.filter(numAccount=account).count() > 0:
+                account = random.randint(1000000, 9999999)
+            new_account = Account(numAccount=account, felial=nameCBU, user=client)
+            new_account.save()
+        else:
+            new_account = Account.objects.filter(numAccount=account).first()
+        dateFinish = datetime.today().replace(year=+3).strftime("%mm%YY")
+
+        new_card = Card(numCard=numCard, dateFinish=dateFinish, image=pic, typeCard=card_order,
+                        bankAccount=new_account, user=client)
+        new_card.save()
+
     return render(
         request,
         'catalog/order_card.html',
         context={'card_order': card_order,
                  'filials': cbu,
-                 'accounts': accounts,}
+                 'accounts': accounts,
+                 }
     )
 
 
