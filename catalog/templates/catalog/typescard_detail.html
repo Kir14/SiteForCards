@@ -5,7 +5,7 @@
 
 {% block content %}
     <form style="text-align:center">
-        <h1>Название: {{ typescard.nameCard }}</h1>
+        <h1>Карта {{ typescard.nameCard }}</h1>
 
 
         <div class="container">
@@ -43,12 +43,48 @@
   font-size: 1.5rem;
   color: #f5f50e">00/00</h1>
         </div>
-        <p><strong>Цена:</strong> {{ typescard.price }}</p>
-        <p><strong>Описание:</strong> {{ typescard.description }}</p>
-        <p><strong>Cash-back:</strong> {{ typescard.cashback }}</p>
-        <p><strong>Валюта:</strong> {{ typescard.ccy }}</p>
+        {#        <p><strong>Цена:</strong> {{ typescard.price }}</p>#}
+        {#        <p><strong>Описание:</strong> {{ typescard.description }}</p>#}
+        {#        <p><strong>Cash-back:</strong> {{ typescard.cashback }}</p>#}
+        {#        <p><strong>Валюта:</strong> {{ typescard.ccy }}</p>#}
+        {##}
+        {#        <a href="{{ typescard.get_absolute_url_for_order }}">Оформить</a>#}
 
-        <a href="{{ typescard.get_absolute_url_for_order }}">Оформить</a>
+        <table class="table table-image" style="width:590px;margin:0 auto">
+            <tbody>
+            <tr>
+                <td class="w-25">
+                    <i class="fa fa-money-bill-wave"></i>
+                    <strong>Цена:</strong> {{ typescard.price }} BYN
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Описание:</strong> {{ typescard.description }}
+                    <i class="fa fa-align-justify" style="color: #e2e011;"></i>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <i class="fa fa-chart-line" style="color: #03ab08"></i>
+                    <strong>Cash-back:</strong> {{ typescard.cashback }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Валюта:</strong> {{ typescard.ccy }}
+                    <i class="fa fa-check" style="color: #66ce04"></i>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{{ typescard.get_absolute_url_for_order }}">
+                        <button type="button" class="btn btn-primary"> Оформить </button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
 
     </form>

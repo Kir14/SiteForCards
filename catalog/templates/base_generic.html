@@ -32,28 +32,28 @@
 
 <nav class="navbar navbar-expand-sm  navbar-dark" style="background-color: #03ab08">
     <!-- Brand -->
-    <a class="navbar-brand" href="{% url 'index' %}">Logo</a>
+    <a class="navbar-brand" href="{% url 'index' %}">Главная</a>
 
     <!-- Links -->
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" href="/catalog/type_card/">Карты</a>
+            <a class="nav-link" href="/catalog/type_card/" style="color: #f2f2f2">Карты</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Фелиалы</a>
+            <a class="nav-link" href="#" style="color: #f2f2f2">Фелиалы</a>
         </li>
 
-        <!-- Dropdown -->
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                Dropdown link
-            </a>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Link 1</a>
-                <a class="dropdown-item" href="#">Link 2</a>
-                <a class="dropdown-item" href="#">Link 3</a>
-            </div>
-        </li>
+{#        <!-- Dropdown -->#}
+{#        <li class="nav-item dropdown">#}
+{#            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">#}
+{#                Dropdown link#}
+{#            </a>#}
+{#            <div class="dropdown-menu">#}
+{#                <a class="dropdown-item" href="#">Link 1</a>#}
+{#                <a class="dropdown-item" href="#">Link 2</a>#}
+{#                <a class="dropdown-item" href="#">Link 3</a>#}
+{#            </div>#}
+{#        </li>#}
     </ul>
 
     {% if user.is_authenticated %}

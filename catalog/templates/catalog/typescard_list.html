@@ -1,20 +1,47 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>Виды карт</h1>
+    <form style="text-align:center">
+    <h1>Выбор карты</h1>
 
-    {% if typescard_list %}
-        <ul>
 
-            {% for typeCard in typescard_list %}
-                <li>
-                    <a href="{{ typeCard.get_absolute_url }}">{{ typeCard.nameCard }}</a>
-                </li>
-            {% endfor %}
+    <div >
+        <div >
+            <div >
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Название</th>
+                        <th scope="col">Валюта</th>
+                        <th scope="col">Cash-back</th>
+                        <th scope="col">Срок выдачи</th>
+                        <th scope="col">Price</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
-        </ul>
-    {% else %}
-        <p>There are no card.</p>
-    {% endif %}
+                        {% for typeCard in typescard_list %}
+                            <tr>
+                            <th scope="row"> {{ typeCard.nameCard }} </th>
+                            <td> {{ typeCard.ccy }}</td>
+                            <td> {{ typeCard.cashback }}</td>
+                            <td> {{ typeCard.validity_period }}</td>
+                            <td> {{ typeCard.price }}</td>
+                            <td>
+                                <a  href="{{ typeCard.get_absolute_url }}">
+                                    <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
+                                </a>
+                            </td>
+                            </tr>
+                        {% endfor %}
 
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </form>
 {% endblock %}

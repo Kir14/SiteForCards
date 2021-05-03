@@ -7,7 +7,7 @@
 <script src="/static/js/script.js"></script>
 {% block content %}
 
-    <form action="" method="POST" enctype="multipart/form-data" style="text-align:center">
+    <form action="" method="POST" enctype="multipart/form-data" style="text-align:center;width:590px;margin:0 auto">
     {% csrf_token %}
     <h1>Карта: {{ card_order.nameCard }}</h1>
 
@@ -52,9 +52,10 @@
   font-size: 1.5rem;
   color: #f5f50e">00/00</h1>
     </div>
+
     <div class="d-flex justify-content-start">
         <div class="btn btn-mdb-color btn-rounded float-left">
-            <input type="file" id="add_image" name="cardPic">
+            <input type="file" id="add_image" name="cardPic" class="file-path validate">
         </div>
     </div>
     {#    <form id="form1">#}
@@ -104,7 +105,7 @@
             <input id="address" type="text" class="form-control" placeholder="Адрес">
         </div>
 
-        <button type="submit">Оформить заявку</button>
+        <button type="submit" class="btn btn-primary">Оформить заявку</button>
     </form>
     <script>
         const inpFile = document.getElementById("add_image");
