@@ -64,8 +64,7 @@ def order_card(request, slug):
     client = Client.objects.filter(user=request.user).first()
     accounts = Account.objects.filter(user=client)
     if request.method == 'POST':
-        pic = request.FILES.get('cardPic',
-                                '')
+        pic = request.FILES.get('cardPic', '')
         numCBU = request.POST['nameCBU']
         check = request.POST['CheckBox']
         adres = request.POST['address']
