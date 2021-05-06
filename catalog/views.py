@@ -9,7 +9,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
 from .forms import CreateUserForm, UserProfileForm
-from .models import Client, TypesCard, Felial, User, Account, Card
+from .models import Client, TypesCard, Felial, User, Account, Card, Sending
 
 from django.views import generic
 
@@ -64,8 +64,11 @@ def order_card(request, slug):
     client = Client.objects.filter(user=request.user).first()
     accounts = Account.objects.filter(user=client)
     if request.method == 'POST':
-        pic = request.FILES['cardPic']
+        pic = request.FILES.get('cardPic',
+                                '')
         numCBU = request.POST['nameCBU']
+        check = request.POST['CheckBox']
+        adres = request.POST['address']
         nameCBU = Felial.objects.filter(numFelial=numCBU.split(' ')[2]).first()
         numCard = random.randint(1000000000000000, 9999999999999999)
         while Card.objects.filter(numCard=numCard).count() > 0:
@@ -85,12 +88,22 @@ def order_card(request, slug):
         #     year=datetime.datetime().today().year + relativedelta() datetime.timedelta(days=3*365)).strftime("%m%Y")
 
         fs = FileSystemStorage()
-        filename = fs.save(pic.name, pic)
+        if pic == '':
+            filename = fs.save(card_order.image.name, card_order.image)
+        else:
+            filename = fs.save(pic.name, pic)
 
         new_card = Card(numCard=numCard, dateFinish=dt, image=filename, typeCard=card_order,
                         bankAccount=new_account, user=client)
         new_card.save()
 
+        numSend = random.randint(10, 500)
+
+        new_sending = Sending(card=new_card,
+                              sender=Client.objects.filter(
+                                  user=User.objects.filter(username='admin').first()).first(),
+                              dateSending=dt, address=adres,
+                              checkbox=check)
         # POST - обязательный метод
         # file_url = ""
         # if request.method == 'POST' and request.FILES:

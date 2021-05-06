@@ -118,7 +118,7 @@ class TypesCard(models.Model):
     image = models.ImageField(null=True, blank=True, default='Batman.jpg')
 
     def __str__(self):
-        return "Карта, {}, стоимость {}, описание: {}".format(self.nameCard, self.price, self.description)
+        return "Карта {}, Cтоимость {}".format(self.nameCard, self.price, self.description)
 
     def get_absolute_url(self):
         """
