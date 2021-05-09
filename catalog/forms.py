@@ -15,12 +15,19 @@ class UserProfileForm(ModelForm):
     class Meta:
         model = Client
         # fields= '__all__'
-        fields = ['phone', 'avatar']
+        fields = ['phone']
         exclude = ['user']
         # fields = ['phone','avatar']
-        widgets = {
-            'avatar': forms.FileInput(),
-        }
+        # widgets = {
+        #     'avatar': forms.FileInput(),
+        # }
+
+
+class SecurityUserForm(ModelForm):
+    class Meta:
+        model = SecurityUser
+        fields = ['passport_num']
+        exclude = ['client']
 
 
 class TypeCard(ModelForm):

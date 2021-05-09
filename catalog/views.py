@@ -1,15 +1,15 @@
 import datetime
 import random
 
-from pyexpat.errors import messages
+from django.contrib import messages
 
 from django.core.files.storage import FileSystemStorage
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
-from .forms import CreateUserForm, UserProfileForm
-from .models import Client, TypesCard, Felial, User, Account, Card, Sending
+from .forms import CreateUserForm, UserProfileForm, SecurityUserForm
+from .models import Client, TypesCard, Felial, User, Account, Card, Sending, SecurityUser
 
 from django.views import generic
 
@@ -149,10 +149,12 @@ def my_card(request):
 
 def registration(request):
     form = CreateUserForm()
-
+    clientform = UserProfileForm()
+    securityuserform = SecurityUserForm()
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
-        player_form = UserProfileForm(request.POST)
+        client_form = UserProfileForm(request.POST)
+        securityuserform = SecurityUserForm(request.POST)
         password1 = request.POST['password1']
         password2 = request.POST['password2']
 
@@ -163,16 +165,22 @@ def registration(request):
         elif User.objects.filter(username=request.POST['username']).exists():
             messages.info(request, "Пользователь с таким логином уже существует")
         else:
-            if form.is_valid() and player_form.is_valid():
+            if form.is_valid():  # and player_form.is_valid():
                 user = form.save()
-                player = player_form.save(commit=False)
-                player.user = user
+                client = client_form.save(commit=False)
+                securityuser = securityuserform.save(commit=False)
+                # user=User()
+                client.user = user
+                securityuser.user = client
                 user.save()
-                player.save()
+                client.save()
+                securityuser.save()
                 username = form.cleaned_data.get('username')
                 messages.success(request, 'Аккаунт ' + username + ' успешно создан')
-                return redirect('template/registration:login')
+                return redirect('login')
 
-    context = {'form': form}
+    context = {'form': form,
+               'clientform': clientform,
+               'securityuserform': securityuserform}
 
-    return render(request, 'registration', context)
+    return render(request, 'catalog/registration.html', context)
