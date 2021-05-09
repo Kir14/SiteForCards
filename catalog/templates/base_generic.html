@@ -45,13 +45,17 @@
 
 {#        <!-- Dropdown -->#}
 {#        <li class="nav-item dropdown">#}
-{#            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">#}
-{#                Dropdown link#}
+{#            <a class="nav-link dropdown-toggle" href="/catalog/type_card/"#}
+{#               style="color: #f2f2f2" id="navbardrop" data-toggle="dropdown">#}
+{#                Карты#}
 {#            </a>#}
 {#            <div class="dropdown-menu">#}
-{#                <a class="dropdown-item" href="#">Link 1</a>#}
-{#                <a class="dropdown-item" href="#">Link 2</a>#}
-{#                <a class="dropdown-item" href="#">Link 3</a>#}
+{#                {% for pay in paysystems %}#}
+{#                    <a class="dropdown-item" href="#">{{ pay.1 }}</a>#}
+{#                {% endfor %}#}
+                {#                <a class="dropdown-item" href="#">Link 1</a>#}
+                {#                <a class="dropdown-item" href="#">Link 2</a>#}
+                {#                <a class="dropdown-item" href="#">Link 3</a>#}
 {#            </div>#}
 {#        </li>#}
     </ul>
@@ -92,29 +96,29 @@
 </nav>
 
 
-<div >
+<div>
 
-{#    <div class="row">#}
-        {#        <div class="col-sm-2">#}
-        {#            {% block sidebar %}#}
-        {#                <ul class="sidebar-nav">#}
-        {#                    <li><a href="{% url 'index' %}">Home</a></li>#}
-        {#                    <li><a href="/catalog/type_card/">Cards</a></li>#}
-        {#                    <li><a href="">Filials</a></li>#}
-        {#                    {% if user.is_authenticated %}#}
-        {#                        <li>User: {{ user.get_username }}</li>#}
-        {#                        <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>#}
-        {#                    {% else %}#}
-        {#                        <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>#}
-        {#                    {% endif %}#}
-        {#                </ul>#}
-        {#            {% endblock %}#}
-        {#        </div>#}
-        <div>
+    {#    <div class="row">#}
+    {#        <div class="col-sm-2">#}
+    {#            {% block sidebar %}#}
+    {#                <ul class="sidebar-nav">#}
+    {#                    <li><a href="{% url 'index' %}">Home</a></li>#}
+    {#                    <li><a href="/catalog/type_card/">Cards</a></li>#}
+    {#                    <li><a href="">Filials</a></li>#}
+    {#                    {% if user.is_authenticated %}#}
+    {#                        <li>User: {{ user.get_username }}</li>#}
+    {#                        <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>#}
+    {#                    {% else %}#}
+    {#                        <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>#}
+    {#                    {% endif %}#}
+    {#                </ul>#}
+    {#            {% endblock %}#}
+    {#        </div>#}
+    <div>
 
-            {% block content %}{% endblock %}
-        </div>
-{#    </div>#}
+        {% block content %}{% endblock %}
+    </div>
+    {#    </div>#}
 
 </div>
 

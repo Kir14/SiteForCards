@@ -27,7 +27,7 @@ def index(request):
     # Доступные книги (статус = 'a')
     # num_instances_available=BookInstance.objects.filter(status__exact='a').count()
     num_felial = Felial.objects.count()  # Метод 'all()' применён по умолчанию.
-
+    paysystems = TypesCard.LOAN_STATUS_P
     # Отрисовка HTML-шаблона index.html с данными внутри
     # переменной контекста context
     return render(
@@ -37,7 +37,9 @@ def index(request):
                  'count_cards': count_card,
                  'num_clients': num_clients,
                  'num_type': num_type,
-                 'num_felial': num_felial},
+                 'num_felial': num_felial,
+                 'paysystems': paysystems,
+                 },
     )
 
 
@@ -98,11 +100,18 @@ def order_card(request, slug):
 
         numSend = random.randint(10, 500)
 
+        if check == 'on':
+            bool = True
+        else:
+            bool = False
+
         new_sending = Sending(card=new_card,
                               sender=Client.objects.filter(
                                   user=User.objects.filter(username='admin').first()).first(),
-                              dateSending=dt, address=adres,
-                              checkbox=check)
+                              address=adres,
+                              checkbox=bool)
+        new_sending.save()
+        return redirect('my_card')
         # POST - обязательный метод
         # file_url = ""
         # if request.method == 'POST' and request.FILES:
@@ -138,11 +147,13 @@ def base_generic(request):
 def my_card(request):
     client = Client.objects.filter(user=request.user).first()
     list_card = Card.objects.filter(user=client)
+    sending = Sending.objects.all()
     return render(
         request,
         'catalog/my_card.html',
         context={
             'my_card_list': list_card,
+            'sendings': sending,
         },
     )
 

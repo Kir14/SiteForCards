@@ -12,6 +12,7 @@
                     <thead>
                     <tr>
                         <th scope="col">Название</th>
+                        <th scope="col">Номер</th>
                         <th scope="col">Фото</th>
                         <th scope="col">Дата окончания</th>
                         <th scope="col">Цена</th>
@@ -19,18 +20,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for card in my_card_list %}
+                    {% for send in sendings %}
                         <tr>
-                            <th scope="row">{{ card.typeCard.nameCard }}</th>
+                            <th scope="row">{{ send.card.typeCard.nameCard }}</th>
+                            <td>{{ send.card.numCard }}</td>
                             <td class="w-25">
 
-                                <img src={% static card.image.url %} class="rounded"
-                                     width="270" height="118"
+                                <img src={% static send.card.image.url %} class="rounded"
+                                     width="180" height="60"
                                      style="border-radius: .9rem!important ;">
                             </td>
-                            <td> {{ card.dateFinish }} </td>
-                            <td> {{ card.typeCard.price }} </td>
-                            <td>Тут статус будет</td>
+                            <td> {{ send.card.dateFinish }} </td>
+                            <td> {{ send.card.typeCard.price }} </td>
+                            <td> {{ send.status }}</td>
                         </tr>
                     {% endfor %}
                     {#		    <tr>#}

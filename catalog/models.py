@@ -117,6 +117,15 @@ class TypesCard(models.Model):
     )
     image = models.ImageField(null=True, blank=True, default='Batman.jpg')
 
+    LOAN_STATUS_P = (
+        ('v', 'Visa'),
+        ('m', 'MasterCard'),
+        ('b', 'Белкарт')
+    )
+
+    paysystem = models.CharField(max_length=1, choices=LOAN_STATUS_P, blank=True,
+                                 default='v', help_text='Платежная система')
+
     def __str__(self):
         return "Карта {}, Cтоимость {}".format(self.nameCard, self.price, self.description)
 
@@ -168,15 +177,14 @@ class Sending(models.Model):
         max_length=100,
         help_text="Адрес"
     )
-    dateSending = models.DateField(
-        null=True,
-        blank=True
-    )
     checkbox = models.BooleanField(
-        default=False
+        default=False,
+        help_text="Отправить по адресу"
     )
-    status = models.CharField(
-        max_length=100,
-        default='В обработке',
-        help_text='Статус'
+    LOAN_STATUS = (
+        ('В обработке', 'В обработке'),
+        ('На эмбоссировании', 'На эмбоссировании'),
+        ('Готова', 'Готова')
     )
+    status = models.CharField(max_length=20, choices=LOAN_STATUS, blank=True,
+                              default='В обработке', help_text='Статус')
