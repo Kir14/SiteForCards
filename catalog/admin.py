@@ -1,6 +1,7 @@
 from django.contrib import admin
+from django.db.models import Count, Sum
 
-from .models import Sending, Client, Card, SecurityUser, Felial, Account, TypesCard
+from .models import Sending, Client, Card, SecurityUser, Felial, Account, TypesCard, SaleSummary
 
 
 # Register your models here.
@@ -46,3 +47,32 @@ class CardAdmin(admin.ModelAdmin):
 @admin.register(Sending)
 class SendingAdmin(admin.ModelAdmin):
     list_display = ('card', 'sender', 'address', 'num_send', 'status')
+
+
+@admin.register(SaleSummary)
+class SaleSummaryAdmin(admin.ModelAdmin):
+    change_list_template = 'admin/sale_summary_change_list.html'
+    date_hierarchy = 'dateOFF'
+
+
+class SendingSummaryAdmin(admin.ModelAdmin):
+    def changelist_view(self, request, extra_context=None):
+        response = super().changelist_view(
+            request,
+            extra_context=extra_context,
+        )
+        try:
+            qs = response.context_data['cl'].queryset
+        except (AttributeError, KeyError):
+            return response
+        metrics = {
+            'total': Count('card'),
+            'total_sales': Sum('card.typeCard.price'),
+        }
+        response.context_data['summary'] = list(
+            qs
+                .values('card.typeCard.nameCard')
+                .annotate(**metrics)
+                .order_by('-total_sales')
+        )
+        return response

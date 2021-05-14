@@ -1,5 +1,5 @@
 import uuid
-
+import datetime
 import null as null
 from django.db import models
 from django.contrib.auth import get_user_model
@@ -173,6 +173,10 @@ class Sending(models.Model):
         default="",
         help_text="номер отправления"
     )
+    dateOFF = models.DateField(
+        help_text="Дата оформления",
+        default=datetime.date.today
+    )
     address = models.CharField(
         max_length=100,
         help_text="Адрес"
@@ -188,3 +192,10 @@ class Sending(models.Model):
     )
     status = models.CharField(max_length=20, choices=LOAN_STATUS, blank=True,
                               default='В обработке', help_text='Статус')
+
+
+class SaleSummary(Sending):
+    class Meta:
+        proxy = True
+        verbose_name = 'Sending Summary'
+        verbose_name_plural = 'Sendings Summary'

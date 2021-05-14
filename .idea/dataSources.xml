@@ -8,5 +8,15 @@
       <jdbc-url>jdbc:sqlite:D:\zagruzki\4to-to intersnoe\DiPloM\Project\KapTo4ku\db.sqlite3</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="KapTo4ku@localhost" uuid="889b37cd-dd27-4c14-877b-e90b2b6fe68f">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/KapTo4ku</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+      <driver-properties>
+        <property name="serverTimezone" value="UTC" />
+      </driver-properties>
+    </data-source>
   </component>
 </project>

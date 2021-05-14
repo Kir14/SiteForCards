@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^order_card/(?P<slug>[-\w]+)$', views.order_card, name='order_card'),
     url(r'^my_card/', views.my_card, name='my_card'),
     url(r'^registration/', views.registration, name='registration'),
+    url(r'^cbu/', views.cbu, name='cbu'),
 ]

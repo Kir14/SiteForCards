@@ -16,10 +16,18 @@
                  style="position: absolute;
         bottom: 570px;
         left: 500px;">
-            <img src="/static/img/visa.png" class="rounded" width="80" height="50"
-                 style="position: absolute;
+            {% if typescard.paysystem == 'v' %}
+                <img src="/static/img/visa.png" class="rounded" width="80" height="50"
+                     style="position: absolute;
         bottom: 420px;
     left: 887px;">
+            {% endif %}
+            {% if typescard.paysystem == 'm' %}
+                <img src="/static/img/mastercard.png" class="rounded" width="80" height="50"
+                     style="position: absolute;
+                    bottom: 420px;
+                     left: 887px;">
+            {% endif %}
             <h1 style="position: absolute;
   left: 520px;
   bottom: 480px;
@@ -79,7 +87,7 @@
             <tr>
                 <td>
                     <a href="{{ typescard.get_absolute_url_for_order }}">
-                        <button type="button" class="btn btn-primary"> Оформить </button>
+                        <button type="button" class="btn btn-primary"> Оформить</button>
                     </a>
                 </td>
             </tr>

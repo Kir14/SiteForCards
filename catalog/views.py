@@ -61,6 +61,8 @@ def typescard_view(request, slug):
 
 
 def order_card(request, slug):
+    if not request.user.is_authenticated:
+        return redirect('login')
     card_order = get_object_or_404(TypesCard, nameCard=slug)
     cbu = Felial.objects.all()
     client = Client.objects.filter(user=request.user).first()
@@ -155,6 +157,17 @@ def my_card(request):
             'my_card_list': list_card,
             'sendings': sending,
         },
+    )
+
+
+def cbu(request):
+    cbus = Felial.objects.all()
+    return render(
+        request,
+        'catalog/cbu.html',
+        context={
+            'cbus': cbus,
+        }
     )
 
 
