@@ -198,4 +198,4 @@ class SaleSummary(Sending):
     class Meta:
         proxy = True
         verbose_name = 'Sending Summary'
-        verbose_name_plural = 'Sendings Summary'
+        verbose_name_plural = 'Sending Summary'

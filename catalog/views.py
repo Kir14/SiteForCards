@@ -147,6 +147,8 @@ def base_generic(request):
 
 
 def my_card(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
     client = Client.objects.filter(user=request.user).first()
     list_card = Card.objects.filter(user=client)
     sending = Sending.objects.all()
