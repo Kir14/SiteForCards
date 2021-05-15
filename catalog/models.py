@@ -97,11 +97,11 @@ class TypesCard(models.Model):
         help_text="Цена"
     )
     description = models.CharField(
-        max_length=100,
+        max_length=1000,
         help_text="Описание"
     )
     ccy = models.CharField(
-        max_length=3,
+        max_length=20,
         help_text="Валюта",
         default="BYN"
     )
@@ -133,13 +133,13 @@ class TypesCard(models.Model):
         """
         Returns the url to access a particular book instance.
         """
-        return reverse('typescard_view', args=[str(self.nameCard)])
+        return reverse('typescard_view', args=[str(self.id)])
 
     def get_absolute_url_for_order(self):
         """
         Returns the url to access a particular book instance.
         """
-        return reverse('order_card', args=[str(self.nameCard)])
+        return reverse('order_card', args=[str(self.id)])
 
 
 class Card(models.Model):
@@ -169,6 +169,7 @@ class Sending(models.Model):
     card = models.ForeignKey(Card, verbose_name="Карта", on_delete=models.CASCADE)
     sender = models.ForeignKey(Client, verbose_name="Отправитель", on_delete=models.CASCADE)
     num_send = models.CharField(
+        blank=True,
         max_length=100,
         default="",
         help_text="номер отправления"

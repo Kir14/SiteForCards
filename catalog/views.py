@@ -19,14 +19,14 @@ def index(request):
     Функция отображения для домашней страницы сайта.
     """
     # Генерация "количеств" некоторых главных объектов
-    num_clients = Client.objects.all().count()
-    num_type = TypesCard.objects.all().count()
+    # num_clients = Client.objects.all().count()
+    # num_type = TypesCard.objects.all().count()
 
     cards = TypesCard.objects.all()
-    count_card = TypesCard.objects.all().count()
+    # count_card = TypesCard.objects.all().count()
     # Доступные книги (статус = 'a')
     # num_instances_available=BookInstance.objects.filter(status__exact='a').count()
-    num_felial = Felial.objects.count()  # Метод 'all()' применён по умолчанию.
+    # num_felial = Felial.objects.count()  # Метод 'all()' применён по умолчанию.
     paysystems = TypesCard.LOAN_STATUS_P
     # Отрисовка HTML-шаблона index.html с данными внутри
     # переменной контекста context
@@ -34,10 +34,6 @@ def index(request):
         request,
         'index.html',
         context={'cards': cards,
-                 'count_cards': count_card,
-                 'num_clients': num_clients,
-                 'num_type': num_type,
-                 'num_felial': num_felial,
                  'paysystems': paysystems,
                  },
     )
@@ -52,7 +48,7 @@ class TypeCardListView(generic.ListView):
 
 
 def typescard_view(request, slug):
-    typescard = get_object_or_404(TypesCard, nameCard=slug)
+    typescard = get_object_or_404(TypesCard, id=slug)
     return render(
         request,
         'catalog/typescard_detail.html',
@@ -63,15 +59,15 @@ def typescard_view(request, slug):
 def order_card(request, slug):
     if not request.user.is_authenticated:
         return redirect('login')
-    card_order = get_object_or_404(TypesCard, nameCard=slug)
+    card_order = get_object_or_404(TypesCard, id=slug)
     cbu = Felial.objects.all()
     client = Client.objects.filter(user=request.user).first()
     accounts = Account.objects.filter(user=client)
     if request.method == 'POST':
         pic = request.FILES.get('cardPic', '')
         numCBU = request.POST['nameCBU']
-        check = request.POST['CheckBox']
-        adres = request.POST['address']
+        check = request.POST.get('CheckBox', '')
+        adres = request.POST.get('address', '')
         nameCBU = Felial.objects.filter(numFelial=numCBU.split(' ')[2]).first()
         numCard = random.randint(1000000000000000, 9999999999999999)
         while Card.objects.filter(numCard=numCard).count() > 0:
@@ -103,15 +99,19 @@ def order_card(request, slug):
         numSend = random.randint(10, 500)
 
         if check == 'on':
-            bool = True
+            new_sending = Sending(card=new_card,
+                                  sender=Client.objects.filter(
+                                      user=User.objects.filter(username='admin').first()).first(),
+                                  address=adres,
+                                  checkbox=True)
         else:
-            bool = False
+            new_sending = Sending(card=new_card,
+                                  sender=Client.objects.filter(
+                                      user=User.objects.filter(username='admin').first()).first(),
+                                  address=nameCBU.address,
+                                  checkbox=False)
 
-        new_sending = Sending(card=new_card,
-                              sender=Client.objects.filter(
-                                  user=User.objects.filter(username='admin').first()).first(),
-                              address=adres,
-                              checkbox=bool)
+
         new_sending.save()
         return redirect('my_card')
         # POST - обязательный метод
@@ -151,7 +151,7 @@ def my_card(request):
         return redirect('login')
     client = Client.objects.filter(user=request.user).first()
     list_card = Card.objects.filter(user=client)
-    sending = Sending.objects.all()
+    sending = Sending.objects.filter(card__user=client)
     return render(
         request,
         'catalog/my_card.html',
