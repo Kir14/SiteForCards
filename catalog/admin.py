@@ -79,8 +79,6 @@ class SaleSummaryAdmin(admin.ModelAdmin):
             'total': Count('id'),
             'total_sales': Sum('card__typeCard__price'),
         }
-        # response.context_data['summary'] = Sending.objects\
-        #     .values('card__typeCard__nameCard')
         response.context_data['summary'] = list(
             qs
                 .values('card__typeCard__nameCard')
@@ -90,13 +88,6 @@ class SaleSummaryAdmin(admin.ModelAdmin):
 
         response.context_data['summary_total'] = dict(qs.aggregate(**metrics))
 
-        # summary_over_time = qs.annotate(
-        #     period=Trunc(
-        #         'dateOFF',
-        #         'day',
-        #         output_field=DateField(),
-        #     ),
-        # ).values('period').annotate(total=Count('card__typeCard__nameCard')).order_by('period')
         period = get_next_in_date_hierarchy(request, self.date_hierarchy)
         response.context_data['period'] = period
         summary_over_time = qs.annotate(

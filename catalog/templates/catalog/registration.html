@@ -10,17 +10,14 @@
                 <div class="card">
                     <div class="card-header">Регистрация</div>
                     <div class="card-body">
-
                         {% for message in messages %}
                             <p id="messages" style="color: #e00202">{{ message }}</p>
                         {% endfor %}
-
                         <div class="form-group">
                             <label for="name" class="cols-sm-2 control-label">Фамилия</label>
                             <div class="cols-sm-10">
                                 <div class="form-group">
-                                    {#<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>#}
-                                    {{ form.last_name }}
+                                   {{ form.last_name }}
                                 </div>
                             </div>
                         </div>
@@ -28,8 +25,6 @@
                             <label for="name" class="cols-sm-2 control-label">Имя</label>
                             <div class="cols-sm-10">
                                 <div class="form-group">
-                                    {#                                    <span class="input-group-addon"><i class="fa fa-user fa"#}
-                                    {#                                                                       aria-hidden="true"></i></span>#}
                                     {{ form.first_name }}
                                 </div>
                             </div>
@@ -38,10 +33,6 @@
                             <label for="email" class="cols-sm-2 control-label">E-mail</label>
                             <div class="cols-sm-10">
                                 <div class="form-group">
-                                    {#                                        <span class="input-group-addon"><i class="fa fa-envelope fa"#}
-                                    {#                                                                           aria-hidden="true"></i></span>#}
-                                    {#                                        <input type="text" class="form-control" name="email" id="email"#}
-                                    {#                                               placeholder="Введите E-mail"/>#}
                                     {{ form.email }}
                                 </div>
                             </div>
@@ -50,10 +41,6 @@
                             <label for="username" class="cols-sm-2 control-label">Логин</label>
                             <div class="cols-sm-10">
                                 <div class="form-group">
-                                    {#                                        <span class="input-group-addon"><i class="fa fa-users fa"#}
-                                    {#                                                                           aria-hidden="true"></i></span>#}
-                                    {#                                        <input type="text" class="form-control" name="username" id="username"#}
-                                    {#                                               placeholder="Введите логин"/>#}
                                     {{ form.username }}
                                 </div>
                             </div>
@@ -62,10 +49,6 @@
                             <label for="password" class="cols-sm-2 control-label">Пароль</label>
                             <div class="cols-sm-10">
                                 <div class="form-group">
-                                    {#                                        <span class="input-group-addon"><i class="fa fa-lock fa-lg"#}
-                                    {#                                                                           aria-hidden="true"></i></span>#}
-                                    {#                                        <input type="password" class="form-control" name="password" id="password"#}
-                                    {#                                               placeholder="Введите пароль"/>#}
                                     {{ form.password1 }}
                                 </div>
                             </div>
@@ -74,10 +57,6 @@
                             <label for="confirm" class="cols-sm-2 control-label">Подтверждение пароля</label>
                             <div class="cols-sm-10">
                                 <div class="form-group">
-                                    {#                                        <span class="input-group-addon"><i class="fa fa-lock fa-lg"#}
-                                    {#                                                                           aria-hidden="true"></i></span>#}
-                                    {#                                        <input type="password" class="form-control" name="confirm" id="confirm"#}
-                                    {#                                               placeholder="Подтверждение пароля"/>#}
                                     {{ form.password2 }}
                                 </div>
                             </div>
@@ -86,9 +65,6 @@
                             <label for="name" class="cols-sm-2 control-label">Номер паспорта</label>
                             <div class="cols-sm-10">
                                 <div class="form-group">
-                                    {#                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>#}
-                                    {#                                        <input type="text" class="form-control" name="passport" id="name"#}
-                                    {#                                               placeholder="Введите номер паспорта"/>#}
                                     {{ securityuserform.passport_num }}
                                 </div>
                             </div>
@@ -97,9 +73,6 @@
                             <label for="name" class="cols-sm-2 control-label">Телефон</label>
                             <div class="cols-sm-10">
                                 <div class="form-group">
-                                    {#                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>#}
-                                    {#                                        <input type="text" class="form-control" name="phone" id="name"#}
-                                    {#                                               placeholder="Телефон"/>#}
                                     {{ clientform.phone }}
                                 </div>
                             </div>
@@ -113,15 +86,12 @@
                         <div class="login-register">
                             <a href="{% url 'login' %}?next={{ request.path }}">Войти</a>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 </form>
-
 <script>
     var form_fields = document.getElementsByTagName('input')
     form_fields[1].placeholder = "Фамилия"
@@ -132,7 +102,6 @@
     form_fields[6].placeholder = "Повторите пароль"
     form_fields[7].placeholder = "Номер паспорта"
     form_fields[8].placeholder = "Телефон"
-
     for (var field in form_fields) {
         form_fields[field].className += ' form-control'
     }

@@ -63,14 +63,14 @@
     {% if user.is_authenticated %}
 
         <ul class="navbar-nav ml-auto nav-flex-icons">
-            <li class="nav-item">
-                <a class="nav-link waves-effect waves-light">1
-                    <i class="fas fa-envelope"></i>
-                </a>
-            </li>
+{#            <li class="nav-item">#}
+{#                <a class="nav-link waves-effect waves-light">1#}
+{#                    <i class="fas fa-envelope"></i>#}
+{#                </a>#}
+{#            </li>#}
             <li class="nav-item avatar dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
+                   aria-haspopup="true" aria-expanded="false" style="color: #f2f2f2">
                     <img src="/static/img/blankuser.jpg" class="rounded-circle z-depth-0"
                          alt="avatar image" style="width: 25px">
                     {{ user.last_name }} {{ user.first_name }}

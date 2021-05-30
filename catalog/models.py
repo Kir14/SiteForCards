@@ -151,12 +151,7 @@ class Card(models.Model):
         max_length=100,
         help_text="Дата окончания"
     )
-    password = models.CharField(
-        max_length=100,
-        help_text="Пароль",
-        default='1234'
-    )
-    image = models.ImageField(null=True, blank=True, default='Batman.jpg')
+    image = models.ImageField(null=True, blank=True, default='ЛогоЗелененнький.jpg')
     typeCard = models.ForeignKey(TypesCard, verbose_name="Тип карты", on_delete=models.CASCADE)
     bankAccount = models.ForeignKey(Account, verbose_name="Счет", on_delete=models.CASCADE)
     user = models.ForeignKey(Client, default="", verbose_name="Пользователь", on_delete=models.CASCADE)
