@@ -32,7 +32,11 @@
                             </td>
                             <td> {{ send.card.dateFinish }} </td>
                             <td> {{ send.card.typeCard.price }} </td>
-                            <td> {{ send.status }}</td>
+                            <td> {{ send.status }}
+                                    {% if send.status='В обработке' %}
+                                        <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
+                                    {% endif %}
+                            </td>
                         </tr>
                     {% endfor %}
                     {#		    <tr>#}
